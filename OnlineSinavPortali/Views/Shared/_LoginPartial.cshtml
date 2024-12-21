@@ -1,0 +1,111 @@
+﻿
+
+ 
+    @if (User.Identity.IsAuthenticated)
+    {
+        if (User.IsInRole("Admin"))
+        {
+
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between container-fluid">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white " asp-area="" asp-controller="Todo" asp-action="Index">Yapılacaklar</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="navbar-nav">
+               
+                <li class="nav-item">
+                            <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Oturumu&nbspKapat</a>
+                </li>
+                
+            </ul>
+        }
+        if (User.IsInRole("Student"))
+        {
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between container-fluid">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Exam" asp-action="StudentMyExams">
+                        | &emsp; Sınavlarım
+                        </a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Exam" asp-action="MyExamResult">
+                        Sınav Sonuçlarım
+                    </a>
+                </li>
+
+                </ul>
+            </div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="UserPage">
+                        @User.Identity.Name                        
+                    </a> 
+                </li>
+                 <li class="nav-item">
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Oturumu&nbspKapat</a>
+                </li>
+
+            </ul>
+        }
+        if (User.IsInRole("Teacher"))
+        {
+             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between container-fluid">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" asp-area="" asp-controller="Exam" asp-action="MyExams">| &emsp; Sınavlarım
+                        </a>
+                    </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Exam" asp-action="ExamResultsByTeacher">
+                       Sınav Sonucları
+                    </a>
+                </li>
+                   
+                </ul>
+            </div> 
+            <ul class="navbar-nav">
+                <li class="nav-item">
+
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="UserPage">
+                        @User.Identity.Name
+                    </a>
+                   
+                </li>
+
+                <li class="nav-item">
+
+                <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Logout">Oturumu&nbspKapat</a>
+                </li>
+
+            </ul>
+        }
+    
+    } 
+    else
+    {
+        var user = Context.User;
+        <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Login">Oturum Aç</a>
+                </li>
+                 
+                <li class="nav-item">
+                    
+                    <a class="nav-link text-white" asp-area="" asp-controller="Home" asp-action="Register">Kayıt Ol</a>
+                </li>
+            </ul>
+        }
+        
+
+
+
+
+

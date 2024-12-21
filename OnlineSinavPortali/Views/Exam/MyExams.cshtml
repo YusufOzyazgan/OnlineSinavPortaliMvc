@@ -1,0 +1,244 @@
+﻿@{
+    ViewData["Title"] = "MyExams";
+}
+
+<body>
+
+    <div class="container container-fluid mt-4">
+
+        <div class="row">
+
+            <div class="col-md-8 ">
+                <div id="progress"></div>
+
+                <table class="table table-striped " id="tbExams">
+                    <thead class="bg-dark">
+                        <tr>
+                            <th class="text-white">ID</th>
+                            <th class="text-white">Sınav Sınıfı</th>
+                            <th class="text-white">Ders İsmi</th>
+                            <th class="text-white">Sınav Tarihi</th>
+                            <th class="text-white">Sorular</th>
+                            <th class="text-white">Düzenle</th>
+                            <th class="text-white">Sil</th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+            <div class="col-md-4 border-top" style="background-color : aliceblue;">
+                <h3 class="mt-2">Sınav Ekle</h3><hr />
+                <label id="SinifSeciniz">Sınıf Seçiniz :</label>
+
+                <select id="UniversityDepartment" name="UniversityDepartment" class="form-control">
+                    <option value="Bilgisayar Programcılığı">Bilgisayar Programcılığı</option>
+                    <option value="Elektrik Elektronik">Elektrik Elektronik</option>
+                    <option value="Harita Kadastro">Harita Kadastro</option>
+                </select>
+                <br />
+
+                <label id="DersAdi">Ders Adı:</label>
+                <div class="mb-4">
+                    <select id="CourseName" name="CourseName" class="form-control">
+                        <option value="Matematik">Matematik</option>
+                        <option value="Türkçe">Türkçe</option>
+
+
+                        <option value="Programlamanın Temelleri">Programlama Temelleri</option>
+                        <option value="İnternet Programcılığı">İnternet Programcılığı</option>
+                        <option value="Veri Tabanı">Veri Tabanı</option>
+
+
+                        <option value="Multimedya Uygulamaları">Multimedya Uygulamaları</option>
+                        <option value="Nesne Tabanlı Programlama">Nesne Tabanlı Programlama</option>
+                        <option value="İleri Programlama">İleri Programlama</option>
+                    </select>
+
+
+
+                </div>
+
+                <div class="mb-4">
+                    <label>Sınav Tarihi:</label>
+                    <input type="date" id="ExamDate1" class="form-control">
+
+                </div>
+                <div class="mb-4">
+                    <label>Sınav Saati:</label>
+                    <input type="time" id="ExamTime" class="form-control">
+
+                </div>
+                <div class="mb-4">
+                    <input type="hidden" id="txtId" />
+                    <button class="btn btn-primary" id="btnKaydet">Kaydet</button>
+
+                </div>
+                <div class="alert" id="sonuc"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+    @section Scripts {
+
+
+
+        <script>
+
+            function formatDateTime(dateTimeString) {
+
+                var jsDate = new Date(dateTimeString);
+
+
+                if (isNaN(jsDate.getTime())) {
+                    return "Invalid Date";
+                }
+
+                var year = jsDate.getFullYear();
+                var month = (jsDate.getMonth() + 1).toString().padStart(2, '0');
+                var day = jsDate.getDate().toString().padStart(2, '0');
+                var hours = jsDate.getHours().toString().padStart(2, '0');
+                var minutes = jsDate.getMinutes().toString().padStart(2, '0');
+
+                return year + '-' + month + '-' + day + ' | ' + hours + ':' + minutes;
+            }
+
+
+            function editExam(examId) {
+
+                console.log("edite basıldı exam Id =" + examId)
+            }
+            function loadQuestions(examID) {
+                console.log("Exam id : " + examID);
+                $.ajax({
+                    url: '/Exam/Questions/' + examID,
+                    type: 'Get',
+                    contentType: 'application/json',
+                    data: {},
+                    success: function (data) {
+                        // Soruları ekrana listeleme işlemi burada gerçekleştirilebilir
+                        console.log('Sorular başarıyla getirildi:', data);
+                        //window.location.href = "/Exam/Questions";
+
+                    },
+                    error: function (error) {
+                        console.error('Sorular getirilirken hata oluştu:', error);
+                    }
+                });
+            }
+            $(document).ready(function () {
+                // Function to load exams using AJAX
+                function loadExams() {
+                    $.ajax({
+                        url: "/Exam/ExamListAjax", // Adjust the URL based on your actual route
+                        type: "GET",
+                        success: function (data) {
+                            // Clear existing table rows
+                            $("#tbExams tbody").empty();
+
+                            // Populate the table with the retrieved exams
+                            $.each(data, function (index, exam) {
+                                var row = "<tr>" +
+                                    "<td>" + (index + 1) + "</td>" +
+                                    "<td>" + exam.universityDepartment + "</td>" +
+                                    "<td>" + exam.courseName + "</td>" +
+                                    "<td>" + formatDateTime(exam.examDate) + "</td>" +
+                                    "<td><a href='Questions/" + exam.examID + "' class='btn btn-info'>Sorular</a></td>" +
+                                    "<td><a href='EditExam/" + exam.examID + "' class='btn btn-warning'>Düzenle</a></td>" +
+                                    "<td><a href='ExamDelete/" + exam.examID + "' class='btn btn-danger'>Sil</a></td>" +
+                                    "</tr>";
+
+                                $("#tbExams tbody").append(row);
+                            });
+                        },
+                        error: function (e) {
+                            console.log(e);
+                            // Handle error if needed
+                        }
+                    });
+                }
+
+                // Initial load of exams when the page is ready
+                loadExams();
+
+                // Edit exam function (You can implement this as needed)
+                function editExam(examId) {
+                    // Implement edit functionality based on the examId
+                    console.log("Edit exam with ID: " + examId);
+                }
+                $("#LoadQuestions").on("click", function () {
+                    var examID = $(this).data("examID");
+                    console.log("Fonksiyon Çalıştı");
+                    loadQuestions(examID);
+                });
+                $("#btnKaydet").on("click", function () {
+                    // Formdan gerekli bilgileri al
+                    var courseId = $("#CourseName").val();
+                    var examType = $("input[name='ExamType']:checked").val();
+                    var UniversityDepartment = $("#UniversityDepartment").val();
+                    // Tarih ve saat değerlerini al
+                    var examDate = $("#ExamDate1").val();
+                    var examTime = $("#ExamTime").val();
+
+                    // JavaScript Date objesini oluştur
+                    var jsDate = new Date(examDate + 'T' + examTime);
+
+                    // Date objesini JSON formatına çevir
+                    var jsonDate = jsDate.toJSON();
+
+                    // Verileri Controller'a gönder
+                    $.ajax({
+                        url: "/Exam/CreateExam",
+                        type: "POST",
+                        data: {
+                            courseId: courseId,
+                            examType: examType,
+                            examDateTime: jsonDate,
+                            UniversityDepartment: UniversityDepartment
+                        },
+                        success: function (result) {
+                            // Başarılı kayıt sonrasında bir şey dönmeyebilir veya bir mesaj dönebilirsiniz.
+                            loadExams(); // Kayıttan sonra sınavları yeniden yükle
+                            $("#sonuc").removeClass("alert-danger").addClass("alert-success").html("Sınav başarıyla kaydedildi.").show();
+
+                            // Formu temizle
+                            $("#CourseName").val("");
+                            $("input[name='ExamType']").prop("checked", false);
+                            $("#UniversityDepartment").val("");
+                            $("#ExamDate1").val("");
+                            $("#ExamTime").val("");
+                        },
+                        error: function (e) {
+                            console.log(e);
+                            $("#sonuc").removeClass("alert-success").addClass("alert-danger").html("Kaydetme işlemi sırasında bir hata oluştu.").show();
+                        }
+                    });
+                });
+
+
+                loadExams();
+
+
+            });
+        </script>
+
+
+
+
+    }
+</body>
+
+
+
+
+

@@ -1,0 +1,49 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+@model List<OnlineSinavPortali.ViewModels.UserModel>
+<div class="container">
+<h2>Kullanıcılar</h2>
+<hr />
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>İD</th>
+            <th>Fotoğraf</th>
+            <th>Adı Soyadı</th>
+            <th>Kullanıcı Adı</th>
+            <th>E mail</th>
+            <th>Role</th>
+            <th>Kayıt Tarihi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+        }
+        @foreach (var item in Model)
+        {
+          
+            <tr>
+                <td>@item.Id</td>
+                <td><img style="width:50px" src="~/Photos/@(item?.PhotoUrl)" alt="Resim Yok" /></td>
+                <td>@item.FullName</td>
+                <td>@item.StudentNumber</td>
+                <td>@item.Email</td>
+                <td>@item.Role</td>
+                <td>@item.CreatedAt</td>
+                <td>
+                    <a asp-controller="Users" asp-action="Detail" asp-route-id="@item.Id" class="btn btn-outline-info">Detay</a>
+                    <a asp-controller="Users" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-warning">Düzenle</a>
+                    <a asp-controller="Users" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger">Sil</a>
+                </td>
+            </tr>
+
+            i++;
+
+        }
+
+    </tbody>
+</table>
+</div>

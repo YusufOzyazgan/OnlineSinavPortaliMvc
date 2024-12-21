@@ -1,0 +1,45 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+@model OnlineSinavPortali.ViewModels.UserModel
+<h2>Ürün Düzenle</h2>
+<hr />
+
+<div class="row container">
+    <div class="col-md-4">
+        <form method="post" asp-action="Edit">       
+            <div class="mb-3">
+                <label asp-for="FullName" class="form-label">İsim Soyisim</label>
+                <input type="text" class="form-control" asp-for="FullName">
+                <span asp-validation-for="FullName" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="StudentNumber" class="form-label">Kullanıcı Adı</label>
+                <input type="UserName" class="form-control" asp-for="StudentNumber">
+                <span asp-validation-for="StudentNumber" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">E Mail</label>
+                <input type="Email" class="form-control" asp-for="Email">
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Role" class="form-label">Rol</label>
+                <input type="Role" class="form-control" asp-for="Role">
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <input type="hidden" asp-for="Id" />
+                <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+                <input type="submit" value="Güncelle" class="btn btn-outline-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial"></partial>
+}
+

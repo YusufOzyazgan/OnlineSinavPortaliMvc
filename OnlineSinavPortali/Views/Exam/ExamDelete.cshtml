@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "ExamDelete";
+}
+
+@model OnlineSinavPortali.ViewModels.ExamModel
+<head>
+    <style>
+        body {
+            background-color: red; /* Koyu gri */
+        }
+    </style>
+</head>
+<div class="container mt-5">
+    
+
+    <div class="card shadow p-3 mb-5 bg-white rounded text-center">
+        <div class="card-body">
+            <h3 class="card-title">
+                Dersi Sil
+            </h3>
+            <p class="card-text">
+                 <strong>@Model.UniversityDepartment &nbsp; @Model.CourseName &nbsp; @Model.ExamDate.ToString("dd/MM/yyyy")</strong>  Sınavı Silinecektir. Onaylıyor musunuz?
+            </p>
+
+            <form asp-action="ExamDelete" asp-route-id="@Model.ExamID" method="post">
+                <input type="hidden" asp-for="ExamID" />
+
+                <div class="text-center mt-4">
+                    <a asp-action="MyExams" class="btn btn-outline-secondary">Geri Dön</a>
+                    <input type="submit" value="Sil" class="btn btn-outline-danger ml-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

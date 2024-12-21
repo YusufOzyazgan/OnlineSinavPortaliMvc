@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "EditExam";
+}
+<style>
+    body {
+        background-color: lightgray; /* Koyu gri */
+    }
+</style>
+@model ExamModel
+
+<div class="container col-md-10 mt-3  justify-content-center align-items-center ">
+
+    <div class="row">
+        <form method="post" asp-action="EditExam">
+
+            <h1 class="text-center"> Sınavı Düzenle</h1>
+
+            <hr />
+            <label id="SinifSeciniz">Sınıf Seçiniz :</label>
+
+            <select id="UniversityDepartment" name="UniversityDepartment" class="form-control mb-2">
+
+                <option value="Bilgisayar Programcılığı" selected="@(Model.UniversityDepartment == "Bilgisayar Programcılığı")">Bilgisayar Programcılığı</option>
+                <option value="Elektrik Elektronik" selected="@(Model.UniversityDepartment == "Elektrik Elektronik")">Elektrik Elektronik</option>
+                <option value="Harita Kadastro" selected="@(Model.UniversityDepartment == "Harita Kadastro")">Harita Kadastro</option>
+            </select>
+
+
+
+
+            <div class="mb-4">
+                <label>Ders Adı:</label>
+                <select id="CourseName" name="CourseName" class="form-control">
+                    <option value="@Model.CourseName">@Model.CourseName</option>
+
+
+                </select>
+
+            </div>
+
+            <div class="mb-4">
+                <label>Sınav Tarihi:</label>
+                <input type="date" name="ExamDate1" class="form-control" value="@Model.ExamDate.ToString("yyyy-MM-dd")">
+            </div>
+            <div class="mb-4">
+                <label>Sınav Saati:</label>
+                <input type="time" name="ExamTime" class="form-control" value="@Model.ExamDate.ToString("HH:mm")">
+            </div>
+
+            <input type="hidden" asp-for="ExamID" value="@Model.ExamID" />
+            <div class="mb-4">
+                <input type="hidden" id="txtId" />
+                <button class="btn btn-primary" type="submit" id="btnKaydet">Kaydet</button>
+
+            </div>
+
+
+
+
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        var lessonsSelect = document.getElementById("CourseName");
+        $("#CourseName").click(function () {
+            if (lessonsSelect.options.length == 1) {
+                eventHandler();
+            }
+        });
+    </script>
+}

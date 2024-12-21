@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewData["Title"] = "StudentMyExams";
+}
+@model List<ExamModel>
+<div class="container mt-6  ">
+
+    <div class="row">
+
+        <div class="col-md-11">
+            <div id="progress">
+
+                <table class="table table-hover" id="tbExams">
+                    <thead>
+                        <tr>
+                            
+                            <th>Sınav Sınıfı</th>
+                            <th>Ders İsmi</th>
+                            <th>Sınav Tarihi</th>
+                            <th>Sınava Giriş</th>
+                           
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            @{
+                                foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td>@item.UniversityDepartment</td>
+                                    <td>@item.CourseName</td>
+                                    <td>@item.ExamDate.ToShortDateString() @item.ExamDate.ToShortTimeString()</td>
+                                    <td><a class="btn btn-primary" asp-controller="Exam" asp-action="EnterExam" asp-route-id="@item.ExamID">Giriş</a></td>
+                                </tr>
+                                }
+                                
+                            }
+                            
+                       
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

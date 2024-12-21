@@ -1,0 +1,101 @@
+﻿@{
+    ViewData["Title"] = "EnterExam";
+}
+@model StudentAnswersModel
+
+
+
+
+<div class="container mt-3">
+    <form action="EnterExam" method="post">
+        <input type="hidden" asp-for="ExamId" value="@Model.ExamId" />
+        @{
+
+            if (Model.Questions != null && Model.Questions.Any())
+            {
+
+
+                for (int a = 0; a < Model.Questions.Count(); a++)
+                {
+
+
+                    <div class="container">
+                        <div class="card mt-4">
+                            <div class="card-header">
+
+                                <h3>@(a + 1). @Model.Questions[a].QuestionText</h3>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group my-1">
+
+
+                                    <li class="list-group-item bg-light border my-2 rounded-4">
+                                        <label>
+                                            <input class="form-check-input" type="radio" name="studentAnswers[@Model.Questions[a].QuestionID]" value="A" />
+                                            @Model.Questions[a].optionAText
+                                        </label>
+                                    </li>
+
+                                    <li class="list-group-item border bg-light my-2 rounded-4">
+                                        <label>
+                                            <input class="form-check-input" type="radio" name="studentAnswers[@Model.Questions[a].QuestionID]" value="B" />
+                                            @Model.Questions[a].optionBText
+                                        </label>
+                                    </li>
+
+                                    <li class="list-group-item border bg-light my-2 rounded-4">
+                                        <label>
+                                            <input class="form-check-input" type="radio" name="studentAnswers[@Model.Questions[a].QuestionID]" value="C" />
+                                            @Model.Questions[a].optionCText
+                                        </label>
+                                    </li>
+
+                                    <li class="list-group-item border my-2 bg-light rounded-4">
+                                        <label>
+                                            <input class="form-check-input" type="radio" name="studentAnswers[@Model.Questions[a].QuestionID]" value="D" />
+                                            @Model.Questions[a].optionDText
+                                        </label>
+                                    </li>
+
+
+                                    @* <li class="list-group-item rounded-2 my-2">
+                        <input class="form-check-input" type="radio" name="question@(item.QuestionID)" value="B" id="q@(item.QuestionID)b">
+                        <label class="form-check-label" for="q@(i)b">B) @item.optionBText</label>
+                        </li>
+                        <li class="list-group-item rounded-2 my-2">
+                        <input class="form-check-input" type="radio" name="question@(item.QuestionID)" value="C" id="q@(item.QuestionID)c">
+                        <label class="form-check-label" for="q@(i)c">C) @item.optionCText</label>
+                        </li>
+                        <li class="list-group-item rounded-2 my-2">
+                        <input class="form-check-input" type="radio" name="question@(item.QuestionID)" value="D" id="q@(item.QuestionID)d">
+                        <label class="form-check-label" for="q@(i)d">D) @item.optionDText</label>
+                        </li>
+
+                        *@
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <h3 class="text-center text-danger">Kayıtlı Soru Yok</h3>
+            }
+        }
+
+        <br />
+        <button class="btn btn-primary submit-btn" type="submit">Sınavı Gönder</button>
+    </form>
+
+
+
+
+
+
+</div>
+
+
+
+
+

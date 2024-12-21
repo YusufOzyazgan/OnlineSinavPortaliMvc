@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "EditQuestion";
+}
+
+@model QuestionModel
+<style>
+    body {
+        background-color: lightgray; /* Koyu gri */
+    }
+</style>
+<body>
+    @* table table-striped *@
+
+    <div class="container mt-10">
+
+        <div class="row">
+
+            <div class="col-md-10">
+
+
+                <form method="post" asp-action="EditQuestion">
+                    <input type="hidden" asp-for="QuestionID" value="@Model.QuestionID">
+                    <input type="hidden" asp-for="ExamID" value="@Model.ExamID">
+
+                    <h2 class="text-center">Soruyu Düzelt</h2>
+                    <hr />
+
+                    <label>Soru Metni: </label>
+                    <br />
+                    <textarea asp-for="QuestionText" style="width:1083px; height:300px;" id="newQuestionText" value="@Model.QuestionText"></textarea>
+                    <span asp-validation-for="QuestionText"></span>
+                    <br />
+                    <label>Önceki Cevap:&nbsp;@Model.QuestionAnswersText</label>
+                    <br /><br />
+
+                    <label>Yeni Soru Seçeneği:&nbsp;</label>
+                    <div>
+                        <br />
+                        <input type="radio" id="optionA" name="QuestionAnswersText" value="A">
+                        <label for="optionA">A )</label>
+                        <input type="text" asp-for="optionAText" value="@Model.optionAText" /><br /><br />
+
+                        <input type="radio" id="optionB" name="QuestionAnswersText" value="B">
+                        <label for="optionB">B )</label>
+                        <input type="text" asp-for="optionBText" value="@Model.optionBText" /><br /><br />
+
+                        <input type="radio" id="optionC" name="QuestionAnswersText" value="C">
+                        <label for="optionC">C )</label>
+                        <input type="text" asp-for="optionCText" value="@Model.optionCText" /><br /><br />
+
+                        <input type="radio" id="optionD" name="QuestionAnswersText" value="D">
+                        <label for="optionD">D )</label>
+                        <input type="text" value="@Model.optionDText" asp-for="optionDText" />
+                    </div>
+                    <span asp-validation-for="QuestionAnswersText"></span>
+
+
+                    <br />
+                    <input type="hidden" id="txtId" />
+                    <button class="btn btn-primary" type="submit" id="btnKaydet"> Kaydet </button>
+
+
+                    <div class="alert" id="sonuc"></div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>

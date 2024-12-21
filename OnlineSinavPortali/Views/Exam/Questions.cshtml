@@ -1,0 +1,75 @@
+﻿@model List<OnlineSinavPortali.ViewModels.QuestionModel>
+<head>
+   
+    <style>
+        
+
+        td {
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        
+        .edit-btn,
+        .delete-btn {
+            display: inline-block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-3 ">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div id="progress">
+                    <h1 class="text-center">Sorular</h1>
+                    <hr>
+                    <br />
+                    <table class="table table-striped" id="tbExams">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Soru</th>
+                                <th>Cevap</th>
+                                <th>Şıklar</th>
+                                <th>Düzenle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                            }
+                            @foreach (var item in Model)
+                            {
+                                i += 1;
+                                <tr>
+                                    <td>@i</td>
+                                    <td>@item.QuestionText</td>
+                                    <td>@item.QuestionAnswersText</td>
+                                    <td>
+                                        @item.optionAText <br />
+                                        @item.optionBText <br />
+                                        @item.optionCText <br />
+                                        @item.optionDText
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Exam" asp-action="EditQuestion" asp-route-id="@item.QuestionID" class="btn btn-info edit-btn">Düzenle</a>
+                                    </td>
+                                    <td>
+                                        <a asp-controller="Exam" asp-action="DeleteQuestion" asp-route-id="@item.QuestionID" class="btn btn-warning delete-btn">Sil</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary" asp-contoller="Exam" asp-route-id="@ViewBag.ExamID" asp-action="CreateQuestion">Soru Ekle</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</body>

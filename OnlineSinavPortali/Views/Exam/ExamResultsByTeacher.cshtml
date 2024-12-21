@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "ExamResultsByTeacher";
+}
+
+
+
+@{
+    ViewData["Title"] = "MyExamResult";
+}
+@model List<ExamResultModel>
+
+<h1 class="text-center mt-3">Sınav Sonuçları</h1>
+<hr>
+<div class="row justify-content-center">
+    <div class="col-9">
+        <table class="table table-striped ">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Sınıf ismi</th>
+                    <th>Ders ismi</th>
+                    <th>Öğrenci ismi</th>
+                    <th>&nbsp Sınav Tarihi</th>
+                    <th class="text-center">Sonuç</th>
+                    <th>İncele</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr><td colspan="4" class="text-center bg-warning rounded-3"> <h4>Sınav Sonucu Bulunmamaktadır. </h4></td></tr>
+
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ClassName</td>
+                            <td>@item.LessonName</td>
+                            <td>@item.StudentName</td>
+                            <td>@item.ExamDate.ToShortDateString() @item.ExamDate.ToShortTimeString()</td>
+                            <td class=" text-center"> <h5 class="fw-bold">@item.Score </h5> </td>
+                            @* <td> <a href="#" class="btn btn-info text--center">İncele</a> </td> *@
+                            <td>
+                                 <a asp-controller="Exam" class="btn btn-info text-center" asp-action="StudentAnswers" asp-route-examId="@item.ExamID" asp-route-userId="@item.StudentId">
+                                    Cevapları Görüntüle
+                                </a> 
+                              @*   <a href="StudentAnswers/@item.ExamID/@item.StudentId" class="btn btn-info text-center">
+                                    Cevapları Görüntüle
+                                </a> *@
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

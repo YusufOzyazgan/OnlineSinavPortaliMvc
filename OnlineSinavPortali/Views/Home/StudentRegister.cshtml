@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "StudentRegister";
+}
+
+@model OnlineSinavPortali.ViewModels.StudentRegisterModel
+
+<body style="background-color: #333;">
+
+    <div class="container mt-5">
+        <div class="row justify-content-center align-items-center">
+             <form class="col-md-4" asp-action="StudentRegister" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-header text-center"><h3>Kayıt Ol (Öğrenci)</h3></div>
+                    <div class="card-body">
+                        <div class="alert alert-danger" asp-validation-summary="ModelOnly"></div>
+                        <div class="mb-3">
+                            <label asp-for="Username"></label>
+                            <input asp-for="Username" class="form-control"  />
+                            <span asp-validation-for="Username" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="FullName"></label>
+                            <input asp-for="FullName" class="form-control"  />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Email"></label>
+                            <input asp-for="Email" value="1@ogr.akdeniz.edu.tr" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="StudentNumber"></label>
+                            <input asp-for="StudentNumber" class="form-control"  />
+                            <span asp-validation-for="StudentNumber" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password"></label>
+                            <input type="password" asp-for="Password" value="Abc.123" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="PasswordConfirm"></label>
+                            <input type="password" asp-for="PasswordConfirm" value="Abc.123" class="form-control" />
+                            <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                        </div>
+
+                        @* <div class="mb-3">
+                        <label asp-for="PhotoFile"></label>
+                        <input asp-for="PhotoFile" class="form-control" />
+                        <span asp-validatiın-for="PhotoFile" class="text-danger"></span>
+                        </div> *@
+                    </div>
+                    <div class="card-footer text-center">
+
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                        <a asp-action="Login" class="btn btn-link">Oturum Aç</a>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br />
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
+

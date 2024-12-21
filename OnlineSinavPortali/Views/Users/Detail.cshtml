@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewData["Title"] = "Detail";
+}
+<h2>Kullanıcı Detayları</h2>
+<hr />
+@model OnlineSinavPortali.ViewModels.UserModel
+<div class="row">
+    <div class="col-md-4">
+        <table class="table">
+            <tr>
+                <td><b>Resim</b></td>
+                <td><img style="width:50px" src="~/Photos/@(Model?.PhotoUrl)" alt="Resim Yok" /></td>
+            </tr>
+            <tr>
+                <td><b>İsim</b></td>
+                <td>@Model.FullName</td>
+            </tr>
+            <tr>
+                <td><b>Okul Numarası</b></td>
+                <td>@Model.StudentNumber</td>
+            </tr>
+            <tr>
+                <td>E Mail</td>
+                <td>@Model.Email</td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td>@Model.Role</td>
+            </tr>
+            <tr>
+                <td>Kayıt Tarihi</td>
+                <td>@Model.CreatedAt</td>
+            </tr>
+        </table>
+
+        <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-warning">Düzenle</a>
+        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-outline-danger">Sil</a>
+
+    </div>
+</div>

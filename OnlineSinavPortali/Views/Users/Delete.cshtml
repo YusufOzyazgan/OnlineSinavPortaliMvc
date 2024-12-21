@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Delete";
+}
+
+
+@model OnlineSinavPortali.ViewModels.UserModel
+<h1>Kişi Sil</h1>
+<br />
+<h3>"<b>@Model.FullName</b>"Adli kişi silinecektir onaylıyor musunuz?</h3>
+<br />
+<form asp-controller="Users" asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <a asp-action="Index" class="btn btn-outline-secondary">Geri Dön</a>
+    <input type="submit" value=" Kişiyi Sil " class="btn btn-outline-danger" />
+</form>
+
+
+

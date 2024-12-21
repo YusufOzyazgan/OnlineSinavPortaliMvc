@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "MyExamResult";
+}
+@model List<ExamResultModel>
+
+<h1 class="text-center mt-3">Sınav Sonuçlarım</h1>
+<hr>
+<div class="row justify-content-center">
+    <div class="col-8">
+        <table class="table table-striped ">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Sınıf ismi</th>
+                    <th>Ders ismi</th>
+                    <th>&nbsp Sınav Tarihi</th>
+                    <th class="text-center">Sonuç</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count == 0)
+                {
+                    <tr><td colspan="4" class="text-center bg-warning rounded-3"> <h4>Sınav Sonucunuz Bulunmamaktadır. </h4></td></tr>
+
+                }
+                else
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr >
+                            <td>@item.ClassName</td>
+                            <td>@item.LessonName</td>
+                            <td>@item.ExamDate.ToShortDateString() @item.ExamDate.ToShortTimeString()</td>
+
+                            <td class=" text-center"> <h5 class="fw-bold">@item.Score </h5> </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
